@@ -26,7 +26,7 @@ The installer isn't code-signed, so Windows SmartScreen may warn on first instal
 ### Publishing a new version
 
 1. Bump `version` in `package.json` (e.g. `0.1.1`) and commit.
-2. `GH_TOKEN=$(gh auth token) npm run release` — builds and uploads the installer, `latest.yml` and blockmap to a GitHub release `v<version>`.
+2. `npm run release` — builds the installer and creates GitHub release `v<version>` with the installer, `latest.yml` and blockmap (uses the signed-in `gh` CLI).
 
 Installed copies pick it up on their next check.
 

@@ -9,7 +9,7 @@
     "start": "electron .",
     "test": "node --test \"test/**/*.test.mjs\"",
     "dist": "electron-builder --win --publish never",
-    "release": "electron-builder --win --publish always"
+    "release": "node scripts/release.mjs"
   },
   "dependencies": {
     "chess.js": "^1.4.0",
