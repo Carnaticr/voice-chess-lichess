@@ -1,0 +1,80 @@
+{
+  "name": "voice-chess-lichess",
+  "productName": "Voice Chess for Lichess",
+  "version": "0.1.0",
+  "description": "Desktop Lichess client with spoken move announcements and voice move input",
+  "main": "src/main/main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "dist": "electron-builder --win --publish never",
+    "release": "electron-builder --win --publish always"
+  },
+  "dependencies": {
+    "chess.js": "^1.4.0",
+    "chessground": "^9.2.1",
+    "electron-updater": "^6.8.9",
+    "stockfish": "^19.0.1"
+  },
+  "devDependencies": {
+    "electron": "^44.7.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "local.voicechess.lichess",
+    "productName": "Voice Chess for Lichess",
+    "files": [
+      "src/**/*",
+      "speech/**/*",
+      "assets/**/*",
+      "package.json",
+      "!node_modules/stockfish/bin/stockfish-19.{js,wasm}",
+      "!node_modules/stockfish/bin/stockfish-19-single.{js,wasm}",
+      "!node_modules/stockfish/bin/stockfish-19-lite.{js,wasm}",
+      "!node_modules/stockfish/bin/stockfish-19-asm.js",
+      "!node_modules/chessground/{src,dist}/**",
+      "LICENSE"
+    ],
+    "asarUnpack": [
+      "speech/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "VoiceChess-Setup-${version}.${ext}",
+      "shortcutName": "Voice Chess for Lichess",
+      "createDesktopShortcut": true,
+      "deleteAppDataOnUninstall": false
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Carnaticr",
+        "repo": "voice-chess-lichess",
+        "releaseType": "release"
+      }
+    ]
+  },
+  "license": "GPL-3.0-or-later",
+  "author": {
+    "name": "Carnaticr"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Carnaticr/voice-chess-lichess.git"
+  },
+  "homepage": "https://github.com/Carnaticr/voice-chess-lichess"
+}

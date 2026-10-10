@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+  <title>Voice Chess for Lichess</title>
+  <link rel="stylesheet" href="../../node_modules/chessground/assets/chessground.cburnett.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">&#9822;&#xFE0E;</span> Voice Chess <span class="muted">for Lichess</span></div>
+    <div class="topbar-right">
+      <span id="conn" class="conn" title="Lichess connection"><span class="dot"></span><span id="conn-text">Offline</span></span>
+      <button id="update-banner" class="update-banner hidden" title="Restart the app to install the update"></button>
+      <span id="user" class="user"></span>
+      <button id="btn-settings" class="ghost" title="Board and voice settings">Settings</button>
+      <button id="btn-logout" class="ghost hidden">Log out</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Login -->
+    <section id="view-login" class="view hidden">
+      <div class="card narrow">
+        <h1>Connect your Lichess account</h1>
+        <p>This app plays through the official Lichess Board API using a personal access token. Your token is encrypted with Windows and stored only on this PC.</p>
+        <ol class="steps">
+          <li><button id="btn-token-page" class="link">Open the token page on lichess.org</button> (scopes <code>board:play</code> and <code>challenge:write</code> are preselected).</li>
+          <li>Click <b>Create</b> and copy the token.</li>
+          <li>Paste it below.</li>
+        </ol>
+        <form id="login-form" class="row">
+          <input id="token" type="password" placeholder="lip_…" autocomplete="off" spellcheck="false">
+          <button type="submit" class="primary">Connect</button>
+        </form>
+        <p id="login-error" class="error"></p>
+      </div>
+    </section>
+
+    <!-- Lobby -->
+    <section id="view-lobby" class="view hidden">
+      <div class="lobby">
+        <div class="card">
+          <h2>Play the computer</h2>
+          <div class="field-grid">
+            <label>Strength
+              <select id="ai-level">
+                <option value="1">Level 1</option><option value="2">Level 2</option><option value="3" selected>Level 3</option>
+                <option value="4">Level 4</option><option value="5">Level 5</option><option value="6">Level 6</option>
+                <option value="7">Level 7</option><option value="8">Level 8</option>
+              </select>
+            </label>
+            <label>Time control
+              <select id="ai-time">
+                <option value="300+3">5 + 3</option>
+                <option value="600+0">10 + 0</option>
+                <option value="600+5" selected>10 + 5</option>
+                <option value="900+10">15 + 10</option>
+                <option value="1800+0">30 + 0</option>
+              </select>
+            </label>
+            <label>Your color
+              <select id="ai-color">
+                <option value="random">Random</option><option value="white">White</option><option value="black">Black</option>
+              </select>
+            </label>
+          </div>
+          <button id="btn-ai" class="primary wide">Play computer</button>
+        </div>
+
+        <div class="card">
+          <h2>Play a person</h2>
+          <div class="field-grid">
+            <label>Time control
+              <select id="seek-time">
+                <option value="10+0">10 + 0</option>
+                <option value="10+5" selected>10 + 5</option>
+                <option value="15+10">15 + 10</option>
+                <option value="30+0">30 + 0</option>
+                <option value="30+20">30 + 20</option>
+              </select>
+            </label>
+            <label>Mode
+              <select id="seek-rated"><option value="false">Casual</option><option value="true">Rated</option></select>
+            </label>
+          </div>
+          <p class="hint">The Board API supports rapid and classical games for open seeks.</p>
+          <button id="btn-seek" class="primary wide">Find opponent</button>
+          <div id="seeking" class="seeking hidden"><span class="spinner"></span> Looking for an opponent… <button id="btn-cancel-seek" class="ghost">Cancel</button></div>
+        </div>
+
+        <div class="card help">
+          <h2>Speaking your moves</h2>
+          <p>Turn the mic on (button or <kbd>M</kbd>), or hold <kbd>Space</kbd> in push‑to‑talk mode, then say a move:</p>
+          <ul class="examples">
+            <li>“e four” · “echo four” · “pawn to e four”</li>
+            <li>“knight f three” · “knight takes e five”</li>
+            <li>“e takes d five” · “bishop takes c six check”</li>
+            <li>“knight b d two” · “rook on a one to d one”</li>
+            <li>“castle short” · “long castle”</li>
+            <li>“e eight queen” · “g one f three” (from‑to always works)</li>
+          </ul>
+          <p>Commands: “repeat”, “time”, “offer draw”, “accept draw”, “decline draw”, “abort”, “resign”, “flip board”, “help”.</p>
+          <p>After a game say “review”, then “next”, “back”, “go to move twelve”, “next mistake”, “best move” or “summary”.</p>
+          <p class="hint">Only legal moves are listened for, so recognition stays accurate. Letters can be said plainly or with the NATO alphabet (alpha, bravo, charlie…).</p>
+          <p id="speech-status" class="hint"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game -->
+    <section id="view-game" class="view hidden">
+      <div class="board-wrap"><div id="board"></div></div>
+      <aside class="side">
+        <div class="player top" id="player-top">
+          <div class="pinfo"><span class="pname"></span><span class="prating"></span></div>
+          <div class="clock"></div>
+        </div>
+
+        <div class="moves" id="moves"></div>
+
+        <div class="player bottom" id="player-bottom">
+          <div class="pinfo"><span class="pname"></span><span class="prating"></span></div>
+          <div class="clock"></div>
+        </div>
+
+        <div id="game-status" class="game-status"></div>
+
+        <div class="actions" id="actions">
+          <button id="btn-flip" class="ghost" title="Flip board">Flip</button>
+          <button id="btn-draw" class="ghost">Offer draw</button>
+          <button id="btn-abort" class="ghost">Abort</button>
+          <button id="btn-resign" class="ghost danger">Resign</button>
+        </div>
+        <div class="actions hidden" id="draw-offer">
+          <span>Opponent offers a draw</span>
+          <button id="btn-draw-yes" class="primary">Accept</button>
+          <button id="btn-draw-no" class="ghost">Decline</button>
+        </div>
+        <div class="actions hidden" id="after-game">
+          <button id="btn-review" class="primary">Review game</button>
+          <button id="btn-lobby" class="ghost">New game</button>
+          <button id="btn-open-web" class="ghost">Open on lichess.org</button>
+        </div>
+
+        <div id="review" class="review hidden">
+          <div class="review-head">
+            <span id="rv-pos" class="rv-pos"></span>
+            <span id="rv-eval" class="rv-eval"></span>
+          </div>
+          <div class="review-nav">
+            <button id="rv-start" title="Start (Home)" aria-label="Start">&#x23EE;&#xFE0E;</button>
+            <button id="rv-back" title="Back (Left arrow)" aria-label="Back">&#x25C0;&#xFE0E;</button>
+            <button id="rv-next" title="Next (Right arrow)" aria-label="Next">&#x25B6;&#xFE0E;</button>
+            <button id="rv-end" title="End (End)" aria-label="End">&#x23ED;&#xFE0E;</button>
+          </div>
+          <div id="rv-status" class="rv-status"></div>
+          <div class="review-actions">
+            <button id="rv-best" class="ghost">Best move here</button>
+            <button id="rv-summary" class="ghost">Read summary</button>
+            <button id="rv-exit" class="ghost">Exit review</button>
+          </div>
+        </div>
+
+        <div class="voice">
+          <button id="btn-mic" class="mic" aria-pressed="false" title="Toggle microphone (M)">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
+          </button>
+          <div class="voice-text">
+            <div id="mic-state" class="mic-state">Mic off</div>
+            <div id="heard" class="heard"></div>
+          </div>
+        </div>
+        <ol id="voice-log" class="voice-log"></ol>
+      </aside>
+    </section>
+  </main>
+
+  <dialog id="settings">
+    <form method="dialog" class="settings-form">
+      <h2>Settings</h2>
+      <div class="two">
+        <label>Board <select id="set-theme">
+          <option value="brown">Brown</option><option value="blue">Blue</option><option value="green">Green</option>
+          <option value="purple">Purple</option><option value="grey">Grey</option><option value="contrast">High contrast</option>
+        </select></label>
+        <label>Pieces <select id="set-pieces">
+          <option value="cburnett">Classic (Lichess)</option><option value="glyphs">Simple glyphs</option>
+        </select></label>
+      </div>
+      <label>Announcer voice <select id="set-voice"></select></label>
+      <label>Speaking rate <input id="set-rate" type="range" min="-5" max="5" step="1"></label>
+      <label>Volume <input id="set-volume" type="range" min="10" max="100" step="5"></label>
+      <label>Recognition confidence threshold <span id="set-threshold-val" class="muted"></span>
+        <input id="set-threshold" type="range" min="0.3" max="0.95" step="0.05">
+      </label>
+      <fieldset>
+        <legend>Microphone</legend>
+        <label class="inline"><input type="radio" name="micMode" value="toggle"> Toggle on/off (button or <kbd>M</kbd>)</label>
+        <label class="inline"><input type="radio" name="micMode" value="ptt"> Push‑to‑talk (hold <kbd>Space</kbd>)</label>
+      </fieldset>
+      <label class="inline"><input id="set-announce" type="checkbox"> Announce opponent moves</label>
+      <label class="inline"><input id="set-detailed" type="checkbox"> Name captured pieces (“bishop takes knight on c6”)</label>
+      <label class="inline"><input id="set-threats" type="checkbox"> Warn when my pieces are newly attacked or hanging</label>
+      <label class="inline"><input id="set-echo" type="checkbox"> Read back my spoken moves</label>
+      <label class="inline"><input id="set-confirm" type="checkbox"> Ask “yes / no” before sending a spoken move</label>
+      <label class="inline"><input id="set-clock" type="checkbox"> Warn at 1 minute, 30 and 10 seconds</label>
+      <div class="about">
+        <div><b>Voice Chess for Lichess</b> <span id="app-version" class="muted"></span></div>
+        <div id="update-text" class="muted"></div>
+        <button type="button" id="btn-check-update" class="ghost">Check for updates</button>
+      </div>
+      <div class="row end">
+        <button type="button" id="btn-test-voice" class="ghost">Test voice</button>
+        <button value="close" class="primary">Done</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
