@@ -52,10 +52,12 @@ struct NotationTests {
     @Test func sanBasics() throws {
         var line = GameLine()
         for uci in ["e2e4", "e7e5", "g1f3", "b8c6", "f1b5", "a7a6", "b5c6", "d7c6", "e1g1"] {
-            #expect(line.play(uci: uci))
+            let played = line.play(uci: uci)
+            #expect(played, "\(uci) should be legal")
         }
         #expect(line.sans == ["e4", "e5", "Nf3", "Nc6", "Bb5", "a6", "Bxc6", "dxc6", "O-O"])
-        #expect(line.play(uci: "e1e2") == false)
+        let illegal = line.play(uci: "e1e2")
+        #expect(illegal == false)
     }
 
     @Test func sanDisambiguationCheckAndMate() throws {
