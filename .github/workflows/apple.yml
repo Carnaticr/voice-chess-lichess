@@ -1,0 +1,40 @@
+name: Apple app
+
+on:
+  push:
+    paths: ["apple/**", ".github/workflows/apple.yml"]
+  pull_request:
+    paths: ["apple/**", ".github/workflows/apple.yml"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: apple
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Toolchain
+        run: xcodebuild -version && swift --version
+
+      - name: Core tests (rules, voice parser, speech text, Lichess payloads)
+        working-directory: apple/VoiceChessCore
+        run: swift test
+
+      - name: Generate Xcode project
+        run: brew install xcodegen && xcodegen generate
+
+      - name: Build for macOS
+        run: >
+          xcodebuild -project VoiceChess.xcodeproj -scheme VoiceChess
+          -destination 'generic/platform=macOS' -configuration Debug
+          CODE_SIGNING_ALLOWED=NO build
+
+      - name: Build for iOS
+        run: >
+          xcodebuild -project VoiceChess.xcodeproj -scheme VoiceChess
+          -destination 'generic/platform=iOS Simulator' -configuration Debug
+          CODE_SIGNING_ALLOWED=NO build
