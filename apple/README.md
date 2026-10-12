@@ -10,19 +10,19 @@ Native version of Voice Chess for Lichess: hear your opponent's moves, speak you
 
 ## Build
 
-Requires Xcode 16 or newer and [XcodeGen](https://github.com/yonaskolb/XcodeGen).
+Requires a Mac with Xcode 16 or newer (CI uses Xcode 26).
 
-```sh
-brew install xcodegen
-cd apple
-xcodegen generate
-open VoiceChess.xcodeproj
-```
+1. Open `apple/VoiceChess.xcodeproj` in Xcode (no other tools needed).
+2. Pick the **VoiceChess** scheme and a destination: **My Mac**, an iPhone/iPad simulator, or a connected device.
+3. For a device (or a signed Mac build), select the VoiceChess target → **Signing & Capabilities**, choose your team,
+   and change the bundle identifier (`io.github.carnaticr.voicechess`) to one you own if needed.
+4. Run (⌘R). Grant microphone and speech-recognition access when asked.
 
-Choose the **VoiceChess** scheme with a Mac or iOS destination. To run on a device, set your team under
-Signing & Capabilities (the bundle id is `io.github.carnaticr.voicechess`; change it if needed).
+Core logic tests: in Xcode open `apple/VoiceChessCore/Package.swift` and press ⌘U, or run `swift test` in that folder.
 
-Core tests: `cd apple/VoiceChessCore && swift test`. CI builds both platforms on every push (`.github/workflows/apple.yml`).
+The committed `VoiceChess.xcodeproj` is the source of truth; edit it in Xcode as usual. `project.yml` is the
+[XcodeGen](https://github.com/yonaskolb/XcodeGen) spec it was generated from (`xcodegen generate` recreates it,
+discarding manual project edits). CI (`.github/workflows/apple.yml`) runs the core tests and builds both platforms.
 
 ## Speaking
 

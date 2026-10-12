@@ -1,0 +1,497 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		19158A31B6BAD2C5FB3938DC /* VoiceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57217D2A1C71C05BE939771A /* VoiceInput.swift */; };
+		1C3D6AE4816FB9F2B1845FBC /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6737AA5134A09A96B79BCEBA /* BoardView.swift */; };
+		579E5C53B05F24BCBDA13EAA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D9F5819F9F1612B0D11F37 /* SettingsView.swift */; };
+		70B0123038A8D7334F880DDA /* VoiceChessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AF66CC6E0678F1ACBA2D74 /* VoiceChessApp.swift */; };
+		724308AF736D2086AA7AB554 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DAE98BA8D4717FE4530283 /* GameView.swift */; };
+		8A8C3D90C735866D957A29D0 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143F27D7A777BD3CC81D39A6 /* AppSettings.swift */; };
+		8D020D039CA2054C3C1C0797 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917AD1B5BB8B1A8C81104A16 /* KeychainStore.swift */; };
+		9271047FC6860A26EB56A10A /* Announcer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E65E577446348E80AB8CCF /* Announcer.swift */; };
+		97E1B7BF614571A7402F6854 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 283FC7117C20F4920A3F1372 /* Localizable.xcstrings */; };
+		9BEE13AEEDC712BF867E7FE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D43ABDFBD5A90E4F862D9231 /* Assets.xcassets */; };
+		ABAE4A822608C06A08FCF2CE /* BoardTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD9F6BB39CE40023BEBBD92 /* BoardTheme.swift */; };
+		BEC62CA3833C620D4451E31E /* VoiceChessCore in Frameworks */ = {isa = PBXBuildFile; productRef = A1B24F14B685B8D3EEAEFC1E /* VoiceChessCore */; };
+		D266AF83ECD6551C4AFD09EB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C1E1092A426FDD2A03848 /* LoginView.swift */; };
+		D571A8FEF93BF2A5721471E2 /* LobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101781CE3E826CF67EDEA98E /* LobbyView.swift */; };
+		DAA2C339F40BB3FCB552C41C /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C8A8C8284A59D03CED8A80 /* AppModel.swift */; };
+		F81BA0B721BD61464C27A7A1 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDD54150886729B2283F1AB /* GameModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		101781CE3E826CF67EDEA98E /* LobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyView.swift; sourceTree = "<group>"; };
+		143F27D7A777BD3CC81D39A6 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		25D9F5819F9F1612B0D11F37 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		26AF66CC6E0678F1ACBA2D74 /* VoiceChessApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceChessApp.swift; sourceTree = "<group>"; };
+		283FC7117C20F4920A3F1372 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		2BDD54150886729B2283F1AB /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
+		39CFB46D8BBCE7232C32145C /* VoiceChess.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = VoiceChess.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52E65E577446348E80AB8CCF /* Announcer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Announcer.swift; sourceTree = "<group>"; };
+		57217D2A1C71C05BE939771A /* VoiceInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceInput.swift; sourceTree = "<group>"; };
+		6737AA5134A09A96B79BCEBA /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		87C8A8C8284A59D03CED8A80 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		917AD1B5BB8B1A8C81104A16 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		953AD024516E3EC1B2B53BCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A7DAE98BA8D4717FE4530283 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		ADD9F6BB39CE40023BEBBD92 /* BoardTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTheme.swift; sourceTree = "<group>"; };
+		D43ABDFBD5A90E4F862D9231 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DE3C1E1092A426FDD2A03848 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		F3F9C0AFA663C2C305EC64CE /* VoiceChess.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VoiceChess.entitlements; sourceTree = "<group>"; };
+		FDB6A73EE43722A476EBF449 /* VoiceChessCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VoiceChessCore; path = VoiceChessCore; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D5111661125B3C0D4472BCAD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEC62CA3833C620D4451E31E /* VoiceChessCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		32A85206B71DB648AD7BBBC0 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				25D9F5819F9F1612B0D11F37 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		42BA7ADEAD00A9D89B434500 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				39CFB46D8BBCE7232C32145C /* VoiceChess.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6EB38F58B4FF237334051627 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				FDB6A73EE43722A476EBF449 /* VoiceChessCore */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		7A18E2356F06A3F6C9827AF0 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				ADD9F6BB39CE40023BEBBD92 /* BoardTheme.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		97718F93D07F679AE7AB2437 /* Lobby */ = {
+			isa = PBXGroup;
+			children = (
+				101781CE3E826CF67EDEA98E /* LobbyView.swift */,
+			);
+			path = Lobby;
+			sourceTree = "<group>";
+		};
+		9E4AFE95D3C97F55048453DB = {
+			isa = PBXGroup;
+			children = (
+				6EB38F58B4FF237334051627 /* Packages */,
+				A0C053D3F6757B1B92803ABF /* VoiceChess */,
+				42BA7ADEAD00A9D89B434500 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A0C053D3F6757B1B92803ABF /* VoiceChess */ = {
+			isa = PBXGroup;
+			children = (
+				953AD024516E3EC1B2B53BCD /* Info.plist */,
+				F3F9C0AFA663C2C305EC64CE /* VoiceChess.entitlements */,
+				C65343B51B9AD9D03DC18764 /* App */,
+				7A18E2356F06A3F6C9827AF0 /* Components */,
+				C283941AE9F5A0F7072EF1CD /* Features */,
+				B73BFA2C0DD1290EC079CE63 /* Resources */,
+				FE34D1A3119CA009925DEF56 /* Services */,
+			);
+			path = VoiceChess;
+			sourceTree = "<group>";
+		};
+		A12806DEF1E6C77D5E72114B /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				DE3C1E1092A426FDD2A03848 /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		B0D88701D3B41F85790D4F57 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				6737AA5134A09A96B79BCEBA /* BoardView.swift */,
+				2BDD54150886729B2283F1AB /* GameModel.swift */,
+				A7DAE98BA8D4717FE4530283 /* GameView.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		B73BFA2C0DD1290EC079CE63 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D43ABDFBD5A90E4F862D9231 /* Assets.xcassets */,
+				283FC7117C20F4920A3F1372 /* Localizable.xcstrings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C283941AE9F5A0F7072EF1CD /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				B0D88701D3B41F85790D4F57 /* Game */,
+				97718F93D07F679AE7AB2437 /* Lobby */,
+				A12806DEF1E6C77D5E72114B /* Login */,
+				32A85206B71DB648AD7BBBC0 /* Settings */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		C65343B51B9AD9D03DC18764 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				87C8A8C8284A59D03CED8A80 /* AppModel.swift */,
+				26AF66CC6E0678F1ACBA2D74 /* VoiceChessApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		FE34D1A3119CA009925DEF56 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				52E65E577446348E80AB8CCF /* Announcer.swift */,
+				143F27D7A777BD3CC81D39A6 /* AppSettings.swift */,
+				917AD1B5BB8B1A8C81104A16 /* KeychainStore.swift */,
+				57217D2A1C71C05BE939771A /* VoiceInput.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		985CB22A034A6FE20A980C48 /* VoiceChess */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C24D79BF5922ED99B794A84 /* Build configuration list for PBXNativeTarget "VoiceChess" */;
+			buildPhases = (
+				7BF756E0A3975EB5445F2158 /* Sources */,
+				0F063859C390DFF80A6C374C /* Resources */,
+				D5111661125B3C0D4472BCAD /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VoiceChess;
+			packageProductDependencies = (
+				A1B24F14B685B8D3EEAEFC1E /* VoiceChessCore */,
+			);
+			productName = VoiceChess;
+			productReference = 39CFB46D8BBCE7232C32145C /* VoiceChess.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7297C0CFB49D2804AC83A7F5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					985CB22A034A6FE20A980C48 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = AD64BA52C781F4DD85B710D6 /* Build configuration list for PBXProject "VoiceChess" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 9E4AFE95D3C97F55048453DB;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				BFD589BCA2C8CDF613C4E74C /* XCLocalSwiftPackageReference "VoiceChessCore" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 42BA7ADEAD00A9D89B434500 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				985CB22A034A6FE20A980C48 /* VoiceChess */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0F063859C390DFF80A6C374C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BEE13AEEDC712BF867E7FE3 /* Assets.xcassets in Resources */,
+				97E1B7BF614571A7402F6854 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7BF756E0A3975EB5445F2158 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9271047FC6860A26EB56A10A /* Announcer.swift in Sources */,
+				DAA2C339F40BB3FCB552C41C /* AppModel.swift in Sources */,
+				8A8C3D90C735866D957A29D0 /* AppSettings.swift in Sources */,
+				ABAE4A822608C06A08FCF2CE /* BoardTheme.swift in Sources */,
+				1C3D6AE4816FB9F2B1845FBC /* BoardView.swift in Sources */,
+				F81BA0B721BD61464C27A7A1 /* GameModel.swift in Sources */,
+				724308AF736D2086AA7AB554 /* GameView.swift in Sources */,
+				8D020D039CA2054C3C1C0797 /* KeychainStore.swift in Sources */,
+				D571A8FEF93BF2A5721471E2 /* LobbyView.swift in Sources */,
+				D266AF83ECD6551C4AFD09EB /* LoginView.swift in Sources */,
+				579E5C53B05F24BCBDA13EAA /* SettingsView.swift in Sources */,
+				70B0123038A8D7334F880DDA /* VoiceChessApp.swift in Sources */,
+				19158A31B6BAD2C5FB3938DC /* VoiceInput.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		710ECA1B1EB9547D3B8C2C93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = VoiceChess/VoiceChess.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
+				INFOPLIST_FILE = VoiceChess/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.carnaticr.voicechess;
+				PRODUCT_NAME = "Voice Chess";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8CE8ACD2E641E31C0E8B59DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C153B2AD1E99B3C07DA4E754 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DB93BCA91F4C6E304DE7ECF2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = VoiceChess/VoiceChess.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
+				INFOPLIST_FILE = VoiceChess/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.carnaticr.voicechess;
+				PRODUCT_NAME = "Voice Chess";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4C24D79BF5922ED99B794A84 /* Build configuration list for PBXNativeTarget "VoiceChess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB93BCA91F4C6E304DE7ECF2 /* Debug */,
+				710ECA1B1EB9547D3B8C2C93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AD64BA52C781F4DD85B710D6 /* Build configuration list for PBXProject "VoiceChess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C153B2AD1E99B3C07DA4E754 /* Debug */,
+				8CE8ACD2E641E31C0E8B59DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		BFD589BCA2C8CDF613C4E74C /* XCLocalSwiftPackageReference "VoiceChessCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = VoiceChessCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A1B24F14B685B8D3EEAEFC1E /* VoiceChessCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VoiceChessCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 7297C0CFB49D2804AC83A7F5 /* Project object */;
+}

@@ -1,0 +1,3 @@
+# Keep Apple sources and the Xcode project in Unix line endings for macOS tooling.
+apple/** text=auto eol=lf
+apple/**/*.png binary
