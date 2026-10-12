@@ -24,8 +24,20 @@ jobs:
         working-directory: apple/VoiceChessCore
         run: swift test
 
-      - name: Generate Xcode project
-        run: brew install xcodegen && xcodegen generate
+      # The committed VoiceChess.xcodeproj is canonical; only generate it from project.yml if it's missing.
+      - name: Generate Xcode project (if missing)
+        run: |
+          if [ ! -d VoiceChess.xcodeproj ]; then
+            brew install xcodegen && xcodegen generate
+          fi
+
+      - name: Upload Xcode project
+        uses: actions/upload-artifact@v4
+        with:
+          name: VoiceChess-xcodeproj
+          path: |
+            apple/VoiceChess.xcodeproj
+            apple/VoiceChess/Info.plist
 
       - name: Build for macOS
         run: >
