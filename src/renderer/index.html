@@ -204,7 +204,13 @@
       <label class="inline"><input id="set-detailed" type="checkbox"> Name captured pieces (“bishop takes knight on c6”)</label>
       <label class="inline"><input id="set-threats" type="checkbox"> Warn when my pieces are newly attacked or hanging</label>
       <label class="inline"><input id="set-echo" type="checkbox"> Read back my spoken moves</label>
-      <label class="inline"><input id="set-confirm" type="checkbox"> Ask “yes / no” before sending a spoken move</label>
+      <label>Confirm spoken moves
+        <select id="set-confirm">
+          <option value="unsure">Only when the recognizer is unsure (recommended)</option>
+          <option value="always">Always ask “yes / no”</option>
+          <option value="never">Never — play immediately</option>
+        </select>
+      </label>
       <label class="inline"><input id="set-clock" type="checkbox"> Warn at 1 minute, 30 and 10 seconds</label>
       <div class="about">
         <div><b>Voice Chess for Lichess</b> <span id="app-version" class="muted"></span></div>

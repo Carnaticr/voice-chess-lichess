@@ -27,7 +27,7 @@ const DEFAULT_SETTINGS = {
   volume: 100,
   threshold: 0.6,
   micMode: 'toggle', // 'toggle' | 'ptt'
-  confirmMoves: false,
+  confirmMode: 'unsure', // 'unsure' | 'always' | 'never'
   echoMyMoves: true,
   announceOpponent: true,
   clockWarnings: true,
@@ -39,8 +39,15 @@ const DEFAULT_SETTINGS = {
 };
 
 function loadSettings() {
-  try { return { ...DEFAULT_SETTINGS, ...JSON.parse(fs.readFileSync(settingsFile, 'utf8')) }; }
-  catch { return { ...DEFAULT_SETTINGS }; }
+  try {
+    const saved = JSON.parse(fs.readFileSync(settingsFile, 'utf8'));
+    // Older versions had a yes/no checkbox; keep "always" for people who turned it on.
+    if (saved.confirmMode === undefined && saved.confirmMoves === true) saved.confirmMode = 'always';
+    delete saved.confirmMoves;
+    return { ...DEFAULT_SETTINGS, ...saved };
+  } catch {
+    return { ...DEFAULT_SETTINGS };
+  }
 }
 let settings = loadSettings();
 function saveSettings() {

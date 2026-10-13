@@ -51,7 +51,10 @@ Toggle the mic with the button or **M**, or switch to push‑to‑talk (hold **S
 
 Commands: *repeat*, *time*, *offer draw*, *accept draw*, *decline draw*, *abort*, *resign* (asks yes/no), *flip board*, *help*, *stop listening*, *review* (after the game).
 
-If a phrase fits two moves (e.g. "knight d two") the app asks which one. Settings include voice, rate, confidence threshold,
+If a phrase fits two moves (e.g. "knight d two") the app asks which one. If the recognizer isn't sure — low confidence,
+or a different move sounded almost as likely — it asks "Knight c3? Say yes or no" instead of guessing; "no" offers the
+runner-up, and repeating the move also confirms it (Settings → *Confirm spoken moves*: only when unsure / always / never).
+Tip: the letters b, c, d, e, g sound alike; the NATO words (bravo, charlie, delta, echo, golf) are recognized more reliably. Settings include voice, rate, confidence threshold,
 optional yes/no confirmation before each spoken move, read‑back of your moves and low‑clock warnings.
 
 ## Announcements

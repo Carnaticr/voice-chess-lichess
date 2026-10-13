@@ -102,8 +102,11 @@ public static class ChessSpeechHost
             rec.SpeechDetected += delegate { if (!speaking) Emit(Msg("speechDetected")); };
             rec.RecognizeCompleted += delegate { recRunning = false; stopPending = false; };
             // Be a bit snappier than the defaults.
-            rec.EndSilenceTimeout = TimeSpan.FromMilliseconds(450);
-            rec.EndSilenceTimeoutAmbiguous = TimeSpan.FromMilliseconds(700);
+            rec.EndSilenceTimeout = TimeSpan.FromMilliseconds(500);
+            // When what was said so far could still be the start of a longer move ("knight b ..."),
+            // wait longer so a pause doesn't force-match a shorter, wrong phrase.
+            rec.EndSilenceTimeoutAmbiguous = TimeSpan.FromMilliseconds(1100);
+            rec.MaxAlternates = 5;
             LoadItems(new List<KeyValuePair<string, string>>());
         }
         catch (Exception ex)
@@ -201,10 +204,7 @@ public static class ChessSpeechHost
                 rec.SetInputToWaveFile((string)cmd["path"]);
                 micReady = false;
                 var res = rec.Recognize();
-                var m = Msg("testResult");
-                m["text"] = res == null ? null : res.Text;
-                m["value"] = res == null ? null : res.Semantics["value"].Value as string;
-                m["confidence"] = res == null ? 0 : Math.Round(res.Confidence, 3);
+                var m = res == null ? Msg("testResult") : Describe(res, "testResult");
                 Emit(m);
                 rec.SetInputToNull();
                 break;
@@ -308,12 +308,42 @@ public static class ChessSpeechHost
     {
         var r = e.Result;
         if (HeardOwnVoice(r)) return;
-        string value = r.Semantics.ContainsKey("value") ? r.Semantics["value"].Value as string : null;
-        var m = Msg(r.Confidence >= threshold ? "heard" : "rejected");
+        Emit(Describe(r, r.Confidence >= threshold ? "heard" : "rejected"));
+    }
+
+    static string ValueOf(RecognizedPhrase p)
+    {
+        return p.Semantics != null && p.Semantics.ContainsKey("value") ? p.Semantics["value"].Value as string : null;
+    }
+
+    // Result plus the best competing interpretations that mean something different,
+    // so the app can ask instead of guessing when two moves sounded alike.
+    static Dictionary<string, object> Describe(RecognitionResult r, string type)
+    {
+        var m = Msg(type);
+        string value = ValueOf(r);
         m["text"] = r.Text;
         m["value"] = value;
         m["confidence"] = Math.Round(r.Confidence, 3);
-        Emit(m);
+        var alts = new List<Dictionary<string, object>>();
+        var seen = new HashSet<string>();
+        if (value != null) seen.Add(value);
+        if (r.Alternates != null)
+        {
+            foreach (var a in r.Alternates)
+            {
+                string v = ValueOf(a);
+                if (v == null || !seen.Add(v)) continue;
+                var d = new Dictionary<string, object>();
+                d["text"] = a.Text;
+                d["value"] = v;
+                d["confidence"] = Math.Round(a.Confidence, 3);
+                alts.Add(d);
+                if (alts.Count >= 3) break;
+            }
+        }
+        m["alternates"] = alts;
+        return m;
     }
 
     static void OnRejected(object sender, SpeechRecognitionRejectedEventArgs e)

@@ -42,6 +42,12 @@ const REVIEW_COMMANDS = {
 
 const JUDGMENT_MARK = { inaccuracy: '?!', mistake: '?', blunder: '??' };
 
+// A spoken move plays immediately only if the recognizer is this sure and no different
+// move came close; otherwise the app asks first (in the default "confirm when unsure" mode).
+const AUTO_PLAY_CONFIDENCE = 0.8;
+const MIN_LEAD_OVER_RIVAL = 0.1;
+const isMoveValue = (v) => /^[a-h][1-8][a-h][1-8][qrbn]?$/.test(v || '');
+
 // ---------------- state ----------------
 const state = {
   me: null,
@@ -534,7 +540,9 @@ function handleHeard(msg) {
   const g = state.game;
   const value = msg.value || '';
   $('#heard').textContent = `“${msg.text}” · ${Math.round(msg.confidence * 100)}%`;
-  logVoice('hear', `${msg.text} (${Math.round(msg.confidence * 100)}%)`);
+  const rival = (msg.alternates || []).find((a) => isMoveValue(a.value) && a.value !== value);
+  logVoice('hear', `${msg.text} (${Math.round(msg.confidence * 100)}%)`
+    + (rival ? ` · or “${rival.text}” (${Math.round(rival.confidence * 100)}%)` : ''));
   if (!g) return;
 
   if (value.startsWith('rev:')) return runReviewCommand(value.slice(4));
@@ -546,16 +554,30 @@ function handleHeard(msg) {
     return;
   }
 
-  if (/^[a-h][1-8][a-h][1-8][qrbn]?$/.test(value)) {
+  if (isMoveValue(value)) {
     if (!isMyTurn()) { say("It's not your turn."); return; }
-    const san = sanFor(value);
-    if (state.settings.confirmMoves) {
-      state.pending = { kind: 'move', uci: value, san };
-      say(`${sanToSpeech(san)}? Say yes or no.`, { interrupt: true });
+    // Saying the move again while it's awaiting confirmation confirms it.
+    if (state.pending?.kind === 'move' && state.pending.uci === value) {
+      state.pending = null;
+      submitMove(value, 'voice');
+      return;
+    }
+    const unsure = msg.confidence < AUTO_PLAY_CONFIDENCE
+      || (rival && msg.confidence - rival.confidence < MIN_LEAD_OVER_RIVAL);
+    const mode = state.settings.confirmMode;
+    if (mode === 'always' || (mode === 'unsure' && unsure)) {
+      askToConfirm(value, rival && isMyTurn() ? rival.value : null);
     } else {
+      state.pending = null;
       submitMove(value, 'voice');
     }
   }
+}
+
+function askToConfirm(uci, alternative) {
+  const san = sanFor(uci);
+  state.pending = { kind: 'move', uci, san, alternative };
+  say(`${sanToSpeech(san)}? Say yes, or no.`, { interrupt: true });
 }
 
 async function runCommand(cmd) {
@@ -569,9 +591,18 @@ async function runCommand(cmd) {
       if (p.kind === 'resign') { await call(api.game.resign(g.id), 'Resign failed'); }
       return;
     }
-    case 'no':
-      if (state.pending) { state.pending = null; say('Cancelled.', { interrupt: true }); }
+    case 'no': {
+      const p = state.pending;
+      state.pending = null;
+      if (!p) return;
+      // Offer the runner-up interpretation once before giving up.
+      if (p.kind === 'move' && p.alternative && isMyTurn()) {
+        askToConfirm(p.alternative, null);
+      } else {
+        say('Cancelled. Say the move again.', { interrupt: true });
+      }
       return;
+    }
     case 'repeat':
       say(state.lastSpoken || (g.sans.length ? `Last move ${sanToSpeech(g.sans[g.sans.length - 1])}` : 'No moves yet.'), { interrupt: true });
       return;
@@ -963,7 +994,7 @@ function loadSettingsForm() {
   document.querySelector(`input[name=micMode][value=${s.micMode}]`).checked = true;
   $('#set-announce').checked = s.announceOpponent;
   $('#set-echo').checked = s.echoMyMoves;
-  $('#set-confirm').checked = s.confirmMoves;
+  $('#set-confirm').value = s.confirmMode;
   $('#set-clock').checked = s.clockWarnings;
   $('#set-detailed').checked = s.detailedCaptures;
   $('#set-threats').checked = s.threatWarnings;
@@ -980,7 +1011,7 @@ async function saveSettingsForm() {
     micMode: document.querySelector('input[name=micMode]:checked').value,
     announceOpponent: $('#set-announce').checked,
     echoMyMoves: $('#set-echo').checked,
-    confirmMoves: $('#set-confirm').checked,
+    confirmMode: $('#set-confirm').value,
     clockWarnings: $('#set-clock').checked,
     detailedCaptures: $('#set-detailed').checked,
     threatWarnings: $('#set-threats').checked,
